@@ -1,0 +1,26 @@
+<html>
+<body>
+	<h3>Edit Project</h3>
+	<form action="/edit_project/" method="post">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="hidden" name="project" value="{{project.id}}">
+	<input type="submit" value="Submit" />
+	</form>
+
+
+	{% for line in lines %}
+		<p>{{line}}</p>
+		<form action="/edit_line/" method="GET">
+			<input type="hidden" name="project" value="{{project.id}}">
+			<input type="hidden" name="line" value="{{line.id}}">
+			<input type="submit" value="Edit">
+		</form>
+	{% endfor %}
+
+	<form action="/view_project/" method="GET">
+		<input type="hidden" name="project" value="{{project.id}}">
+		<input type="submit" value="Back">
+	</form>
+
+</body>
+</html>

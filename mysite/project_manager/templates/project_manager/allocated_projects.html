@@ -1,0 +1,19 @@
+<html>
+<body>
+	<p>Allocated Projects</p>
+
+	<form action="/manager_home/" method="GET">
+		<input type="submit" value="Unallocated Projects">
+	</form>
+
+
+	{% for project in projects %}
+		<p>{{project.customer_name}} from {{project.agent}} on {{project.submission_date}}</p>
+		<form action="/view_project/" method="GET">
+			<input type="hidden" name="project" value="{{project.id}}">
+			<input type="submit" value="View">
+		</form>
+	{% endfor %}
+
+</body>
+</html>

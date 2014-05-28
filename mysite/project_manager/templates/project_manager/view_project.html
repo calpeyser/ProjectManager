@@ -1,0 +1,23 @@
+<html>
+<body>
+	<h3>View Project</h3>
+	<p>Agent: {{project.agent.name}}</p>
+	<p>Artist: {{project.artist.name}}</p>
+	<p>Due: {{project.due_date}}</p>
+	<p>Status: {{project.status}}</p>
+	<p>Customer Name: {{project.customer_name}}</p>
+	<p>Customer Number: {{project.customer_number}}</p>
+	<p>Market: {{project.market}}</p>
+	<h5>Lines:</h5>
+	{% for label in labels %}
+		<p>{{label}}</p>
+	{% endfor %}
+
+	<a href="/edit_project?project={{project.id}}">Edit</a>
+
+	<form action="/go_home/" method="GET">
+		<input type="submit" value="Back">
+	</form>
+
+</body>
+</html>

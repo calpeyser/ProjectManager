@@ -1,0 +1,20 @@
+<html>
+<body>
+	<h3>Create Project</h3>
+	<p>lines = {{lines}}</p>
+	<form action="/create_project/" method="post">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="hidden" name="type" value="{{type}}">
+	<input type="hidden" name="lines" value="{{lines}}">
+	{% for i in lines_iter %}
+		Line {{i}}: Style:<input type="text" name="Style{{i}}"/>
+		Garment Color:<input type="text" name="Garment{{i}}"/>
+		Placement:<input type="text" name="Placement{{i}}"/>
+		Design Color:<input type="text" name="Design{{i}}"/><br>
+	{% endfor %}
+
+	<input type="submit" value="Submit" />
+	</form>
+
+</body>
+</html>
