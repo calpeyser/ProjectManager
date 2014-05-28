@@ -1,19 +1,27 @@
-<html>
-<body>
-	<p>Allocated Projects</p>
-
-	<form action="/manager_home/" method="GET">
-		<input type="submit" value="Unallocated Projects">
-	</form>
-
-
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center">
+	<h1>Manager Control Panel</h1>
+	<br>
 	{% for project in projects %}
+	<div class="container" style="background-color: white; border: 2px solid black; border-radius: 10px; width: 550px; height: 100px; position: relative:">
+		<br>
 		<p>{{project.customer_name}} from {{project.agent}} on {{project.submission_date}}</p>
 		<form action="/view_project/" method="GET">
 			<input type="hidden" name="project" value="{{project.id}}">
 			<input type="submit" value="View">
 		</form>
+	</div>
+	<br>
 	{% endfor %}
 
-</body>
-</html>
+<div class="container" style="background-color: white; border: 2px solid black; border-radius: 10px; width: 550px; height: 75px; position: relative:">
+	<br>
+	<form action="/manager_home/" method="GET">
+		<input type="submit" value="View Unallocated Projects">
+	</form>
+</div>
+
+
+</div> <!-- outer container -->
+{% endblock %}

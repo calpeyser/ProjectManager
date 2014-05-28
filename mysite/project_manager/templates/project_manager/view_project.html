@@ -1,23 +1,29 @@
-<html>
-<body>
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container" align="center">
 	<h3>View Project</h3>
-	<p>Agent: {{project.agent.name}}</p>
-	<p>Artist: {{project.artist.name}}</p>
-	<p>Due: {{project.due_date}}</p>
-	<p>Status: {{project.status}}</p>
-	<p>Customer Name: {{project.customer_name}}</p>
-	<p>Customer Number: {{project.customer_number}}</p>
-	<p>Market: {{project.market}}</p>
-	<h5>Lines:</h5>
+	<p><b>Agent:</b> {{project.agent.name}}</p>
+	<p><b>Artist:</b> {{project.artist.name}}</p>
+	<p><b>Due:</b> {{project.due_date}}</p>
+	<p><b>Status:</b> {{project.status}}</p>
+	<p><b>Customer Name:</b> {{project.customer_name}}</p>
+	<p><b>Customer Number:</b> {{project.customer_number}}</p>
+	<p><b>Market:</b> {{project.market}}</p>
 	{% for label in labels %}
-		<p>{{label}}</p>
+		<p><b>Line:</b> {{label}}</p>
 	{% endfor %}
 
-	<a href="/edit_project?project={{project.id}}">Edit</a>
-
+	<br>
+	<form action="/edit_project" method = "GET">
+		<input type="hidden" name="project" value="{{project.id}}">
+		<input type="submit" value="Edit">
+	</form>
+	<br>
 	<form action="/go_home/" method="GET">
 		<input type="submit" value="Back">
 	</form>
 
-</body>
-</html>
+</div> <!-- outer container -->
+{% endblock %}

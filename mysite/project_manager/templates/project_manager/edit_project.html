@@ -1,26 +1,35 @@
-<html>
-<body>
-	<h3>Edit Project</h3>
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center">
+	<h2>Edit Project Fundamentals</h2>
+	<br>
 	<form action="/edit_project/" method="post">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="hidden" name="project" value="{{project.id}}">
 	<input type="submit" value="Submit" />
 	</form>
 
+	<br><br>
 
+	<h2>Edit Project Lines</h2>
 	{% for line in lines %}
+	    <div class="container" style="background-color: white; border: 2px solid black; border-radius: 5px; width: 1050px; height: 95px; position: relative:">
+	    <br>
 		<p>{{line}}</p>
 		<form action="/edit_line/" method="GET">
 			<input type="hidden" name="project" value="{{project.id}}">
 			<input type="hidden" name="line" value="{{line.id}}">
 			<input type="submit" value="Edit">
 		</form>
+		</div>
+		<br>
 	{% endfor %}
 
 	<form action="/view_project/" method="GET">
 		<input type="hidden" name="project" value="{{project.id}}">
 		<input type="submit" value="Back">
 	</form>
+	<br><br>
 
-</body>
-</html>
+</div> <!-- outer container -->
+{% endblock %}

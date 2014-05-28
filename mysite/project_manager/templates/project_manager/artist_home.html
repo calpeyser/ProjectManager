@@ -1,13 +1,21 @@
-<html>
-<body>
-	<p>Artist Home</p>
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center">
+	<h1>Projects:</h1>
+	<br>
 	{% for project in projects %}
+		<div class="container" style="background-color: white; border: 2px solid black; border-radius: 10px; width: 550px; height: 130px; position: relative:">
+	    <br>
 		<p>{{project.customer_name}} due on {{project.due_date}}</p>
+		<p>Status: {{project.status}}</p>
+
 		<form action="/edit_project/" method="GET">
 			<input type="hidden" name="project" value="{{project.id}}">
 			<input type="submit" value="Edit">
 		</form>
+		</div>
+		<br>
 	{% endfor %}
 
-</body>
-</html>
+</div> <!-- outer container -->
+{% endblock %}

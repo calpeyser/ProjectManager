@@ -1,7 +1,10 @@
-<html>
-<body>
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container" align="center">
+
 	<h3>Create Project</h3>
-	<p>lines = {{lines}}</p>
 	<form action="/create_project/" method="post">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="hidden" name="type" value="{{type}}">
@@ -12,9 +15,9 @@
 		Placement:<input type="text" name="Placement{{i}}"/>
 		Design Color:<input type="text" name="Design{{i}}"/><br>
 	{% endfor %}
-
+	<br>
 	<input type="submit" value="Submit" />
 	</form>
+</div> <!-- outer container -->
 
-</body>
-</html>
+{% endblock %}

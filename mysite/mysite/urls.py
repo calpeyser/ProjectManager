@@ -19,6 +19,6 @@ urlpatterns = patterns('',
     url(r'^edit_line/', 'project_manager.views.edit_line'),
     url(r'^view_project/', 'project_manager.views.view_project'),
     url(r'^allocated_projects/', 'project_manager.views.allocated_projects'),
-    url(r'^go_home/', 'project_manager.views.go_home')
-
+    url(r'^go_home/', 'project_manager.views.go_home'),
+    url(r'^logout/','project_manager.views.logout')
 )

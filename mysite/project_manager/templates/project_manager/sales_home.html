@@ -1,15 +1,23 @@
-<html>
-<body>
-	<p>Sales Home</p>
-
+{% extends "base.html" %}
+{% block content %}
+<div class="container" align="center">
+	<h2>Create a Project</h2>
 	<form action="/sales_home/" method="post">{% csrf_token %}
 	{{ form.as_p }}
-	<input type="submit" value="Submit" />
+	<input type="submit" value="Edit Details" />
 	</form>
 
+	<br>
+	<h2>Edit Past Projects</h2>
 	{% for project in projects %}
-		<p><a href="/view_project?project={{project.id}}">{{project.customer_name}}</a></p>
+	    <div class="container" style="background-color: white; border: 2px solid black; border-radius: 10px; width: 550px; height: 170px; position: relative:">
+	    <br>
+	    <br>
+	    <p>Customer: {{project.customer_name}}, {{project.customer_number}}</p>
+	    <p>Due: {{project.due_date}}</p>
+		<p><a href="/view_project?project={{project.id}}">View</a></p>
+		</div>
+		<br>
 	{% endfor%}
-
-</body>
-</html>
+</div> <!-- outer container -->
+{% endblock %}

@@ -9,8 +9,8 @@ from utilities import *
 
 
 global ROOT 
-URL_ROOT = 'http://ec2-54-86-250-252.compute-1.amazonaws.com/'
-#URL_ROOT = 'http://127.0.0.1:8000/'
+#URL_ROOT = 'http://ec2-54-86-250-252.compute-1.amazonaws.com/'
+URL_ROOT = 'http://127.0.0.1:8000/'
 
 def landing(request):
     if request.method == 'POST': 
@@ -45,11 +45,15 @@ def landing(request):
     else:
         form = AuthForm() # An unbound form
 
-    status = "im a status!"
     return render(request, 'project_manager/landing.html', {
         'form': form,
-        'status': status
     })
+
+def logout(request):
+	if 'name' in request.session:
+		del request.session['name']
+	return HttpResponseRedirect('/')
+
 
 def go_home(request):
 	return go_home_multiplex(request);
@@ -71,6 +75,7 @@ def sales_home(request):
 	return render(request, 'project_manager/sales_home.html/', {
 		'form': form,
 		'projects': Project.objects.filter(agent=current_user),
+		'user': current_user,
 	})
 
 def create_project(request):
@@ -106,7 +111,8 @@ def create_project(request):
 			'form': project_form,
 			'type': p_type,
 			'lines': lines,
-			'lines_iter': range(int(lines)+1)[1:]
+			'lines_iter': range(int(lines)+1)[1:],
+			'user': current_user,
 		})
 
 def edit_project(request):
@@ -134,7 +140,7 @@ def edit_project(request):
 	else:
 		project_form = multiplex_form_edit(this_project.project_type, request, False, this_project, current_user.is_manager, current_user.is_artist);
 
-	return render(request, 'project_manager/edit_project.html/', {'form': project_form, 'project': this_project, 'lines': this_project.labels.all()},)
+	return render(request, 'project_manager/edit_project.html/', {'form': project_form, 'project': this_project, 'lines': this_project.labels.all(), 'user': current_user},)
 
 def edit_line(request):
 	if not validId(request):  # standard prologue
@@ -171,7 +177,7 @@ def edit_line(request):
 	else:
 		project_form = EditLine(instance=this_line)
 
-	return render(request, 'project_manager/edit_line.html/', {'form': project_form, 'project': this_project, 'line': this_line})
+	return render(request, 'project_manager/edit_line.html/', {'form': project_form, 'project': this_project, 'line': this_line, 'user':current_user})
 
 def view_project(request):
 	if not validId(request):  # standard prologue
@@ -188,7 +194,7 @@ def view_project(request):
 			return HttpResponseRedirect('/')	
 
 
-	return render(request, 'project_manager/view_project.html/', {'project': this_project, 'labels': this_project.labels.all()})
+	return render(request, 'project_manager/view_project.html/', {'project': this_project, 'labels': this_project.labels.all(), 'user': current_user})
 
 def manager_home(request):
 	if not validId(request):
@@ -200,7 +206,7 @@ def manager_home(request):
 
 	# manager_home will display unallocated projects
 	projects = Project.objects.filter(artist=None);
-	return render(request, 'project_manager/manager_home.html', {'projects': projects})
+	return render(request, 'project_manager/manager_home.html', {'projects': projects, 'user': current_user})
 
 def allocated_projects(request):
 	if not validId(request):
@@ -212,7 +218,7 @@ def allocated_projects(request):
 
 	all_projects = Project.objects.all();
 	projects = filter(lambda x: x.artist != None, all_projects);
-	return render(request, 'project_manager/allocated_projects.html', {'projects': projects})
+	return render(request, 'project_manager/allocated_projects.html', {'projects': projects, 'user': current_user})
 
 
 def artist_home(request):
@@ -225,13 +231,13 @@ def artist_home(request):
 
 	projects = Project.objects.filter(artist=current_user)
 
-	return render(request, 'project_manager/artist_home.html', {'projects': projects})
+	return render(request, 'project_manager/artist_home.html', {'projects': projects, 'user': current_user})
 
 def sales_manager_home(request):
 	if not validId(request):
 		return HttpResponseRedirect("/")
 
-	return render(request, 'project_manager/sales_manager_home.html')
+	return render(request, 'project_manager/sales_manager_home.html', {'user': current_user})
 
 
 
