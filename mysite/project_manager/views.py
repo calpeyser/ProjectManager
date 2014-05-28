@@ -9,8 +9,8 @@ from utilities import *
 
 
 global ROOT 
-#URL_ROOT = 'http://carshare.tigerapps.org/'
-URL_ROOT = 'http://127.0.0.1:8000/'
+URL_ROOT = 'http://ec2-54-86-250-252.compute-1.amazonaws.com/'
+#URL_ROOT = 'http://127.0.0.1:8000/'
 
 def landing(request):
     if request.method == 'POST': 
